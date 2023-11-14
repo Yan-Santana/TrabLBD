@@ -9,7 +9,7 @@ connect = psycopg2.connect (
     port="5433"
 )
 
-with open('C:\Users\Yan-Santana\Downloads\INFLUD20-01-05-2023.csv', 'r') as file:
+with open('entrada.csv', 'r') as file:
     reader = csv.reader(file)
     next(reader) 
 
