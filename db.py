@@ -9,14 +9,18 @@ DB_HOST = "localhost"
 DB_PORT = "5433"
 
 def connect():
-    conn = psycopg2.connect(
-        database = DB_NAME,
-        user = DB_USER,
-        password = DB_PASSWORD,
-        host = DB_HOST,
-        port = DB_PORT
-    )
-    return conn
+    try:
+        conn = psycopg2.connect(
+            database = DB_NAME,
+            user = DB_USER,
+            password = DB_PASSWORD,
+            host = DB_HOST,
+            port = DB_PORT
+        )
+        print("Conexão com o banco de dados realizada com sucesso!")
+        return conn
+    except psycopg2.Error as e:
+        print(f"Erro na conexão com o banco de dados: {e}")
 
 def execute_query(query):
     conn = connect()
