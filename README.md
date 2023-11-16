@@ -32,3 +32,18 @@
   * III. Para enviar suas alterações para um repositório remoto, você pode usar o comando git push: `git push`
   * IV. Para puxar as alterações mais recentes de um repositório remoto para o seu repositório local, use o seguinte comando: `git pull` <br>
   * OBS: Antes de modificar qualquer coisa no código, lembre-se de executar o comando `git pull` para trazer as modificações mais recentes de outros colaboradores para o seu repositório local e garantir que você esteja trabalhando com a versão mais atualizada do código.
+
+## Organizacao do codigo
+
+├── db.py (conexão com o banco de dados)
+├── tables/
+|  ├── _init_.py
+|  ├── paciente.py (criação da tabela paciente)
+|  ├── notificacao.py (criação da tabela notificacao) 
+|  ├── residencia.py (criação da tabela residencia)
+|  ├── dados_clinicos.py (criação da tabela dados_clinicos)
+|  ├── dados_atendimento.py (criação da tabela dados_atendimento)
+|  ├── dados_laboratoriais.py (criação da tabela dados_laboratoriais)
+|  └── conclusao.py (criação da tabela conclusao)
+├── inserir_dados.py (inserção dos dados CSV) 
+├── main.py (arquivo principal que executa todas as partes)
