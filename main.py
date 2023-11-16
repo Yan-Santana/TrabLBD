@@ -1,30 +1,23 @@
-import psycopg2
-import csv
+# Arquivo responsavel pela coordenacao geral do programa
 
-connect = psycopg2.connect (
-    database="SRAG",
-    user="postgres",
-    password="minhasenha", 
-    host="meucontainer", 
-    port="5433"
-)
+from db import create_db, connect_db, execute_query
+import tables
+import inserir_dadosCSV
+import tables
 
-with open('entrada.csv', 'r') as file:
-    reader = csv.reader(file)
-    next(reader) 
+create_db()
 
-    for row in reader:
-        cur = connect.cursor()
-        
-    # ESTOU ARRUMANDO ESSA PARTE AQUI! 
-        query = "INSERT INTO dados (data, estado, municipio, obito, sexo, idade, raca, evolucao, dt_notific, dt_inicio_sintomas, dt_obito, classificacao_final, criterio_confirmacao, criterio_obito, status_notificacao, municipio_notificacao) VALUES (%s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s, %s)"
+conn = connect_db() 
 
-        row[3] = int (row[3])
-        row[5] = int (row[5])
-        
-        cur.execute(query, row)
-        connect.commit()
-        
-        
-cur.close()
-connect.close()
+tables.paciente.create_table_paciente()
+tables.residencia.create_table_residencia()
+tables.notificacao.create_table_notificacao()
+tables.dados_clinicos.create_table_dados_clinicos()
+tables.dados_atendimento.create_table_dados_atendimento()
+tables.dados_laboratoriais.create_table_dados_laboratoriais()
+tables.conclusao.create_table_conclusao()
+
+inserir_dadosCSV.inserir_dados()
+
+conn.commit()
+conn.close()
