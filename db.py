@@ -2,7 +2,7 @@
 
 import psycopg2
 
-DB_NAME = "TrabLBD.db"
+DB_NAME = "SRAG"
 DB_USER = "postgres"
 DB_PASSWORD = "minhasenha"
 DB_HOST = "localhost"

@@ -1,13 +1,13 @@
 # Arquivo responsavel pela coordenacao geral do programa
 
-from db import create_db, connect_db, execute_query
-import tables
+from db import connect, execute_query
+from tables import paciente
 import inserir_dadosCSV
 import tables
 
-create_db()
+# Estou arrumando a main ainda, esta dando um erro ao tentar importar o arquivo das ""tables""
 
-conn = connect_db() 
+conn = connect() 
 
 tables.paciente.create_table_paciente()
 tables.residencia.create_table_residencia()
