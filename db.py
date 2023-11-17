@@ -22,6 +22,7 @@ def connect():
     except psycopg2.Error as e:
         print(f"Erro na conexão com o banco de dados: {e}")
 
+
 def execute_query(query):
     conn = connect()
     cur = conn.cursor()
@@ -29,7 +30,7 @@ def execute_query(query):
     cur.execute(query)
     
     conn.commit()
-    cur.commit()
+    cur.close()
     conn.close()
 
 def commit_changes():

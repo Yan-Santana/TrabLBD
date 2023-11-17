@@ -18,7 +18,9 @@ def create_table_residencia():
         cs_zona VARCHAR(1),
         id_pais VARCHAR(3)
     )
-"""
+    """
+    return query
+
    
 execute_query(create_table_residencia())
 commit_changes()

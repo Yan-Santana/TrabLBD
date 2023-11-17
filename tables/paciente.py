@@ -18,6 +18,7 @@ def create_table_paciente():
         pac_cocbo VARCHAR(6),
         nm_mae_pac VARCHAR(70)
     )
-"""
+    """
+    return query
 execute_query(create_table_paciente())
 commit_changes()

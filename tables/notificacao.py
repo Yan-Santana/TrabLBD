@@ -14,6 +14,8 @@ def create_table_notificacao():
         id_regiona VARCHAR(6)
     )
     """
+    return query
+
     
 execute_query(create_table_notificacao())
 commit_changes()
