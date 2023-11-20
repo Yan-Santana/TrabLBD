@@ -1,7 +1,6 @@
-from db import execute_query
-from db import execute_query
+from database import execute_query
 
-def create_table_notificacao():
+def create_table_notificacao(connection):
     query = """
     CREATE TABLE notificacao (
         id_notificacao SERIAL PRIMARY KEY,
@@ -14,7 +13,5 @@ def create_table_notificacao():
         id_regiona VARCHAR(6)
     )
     """
-    return query
 
-    
-execute_query(create_table_notificacao())
+    execute_query(connection, query)

@@ -1,7 +1,6 @@
-from db import execute_query
-from db import execute_query
+from database import execute_query
 
-def create_table_dados_clinicos():
+def create_table_dados_clinicos(connection):
     query = """
         CREATE TABLE dados_clinicos (
             id_dados_clinicos SERIAL PRIMARY KEY,
@@ -56,6 +55,5 @@ def create_table_dados_clinicos():
             dat_sin_pri DATE
         )
         """
-    return query    
-
-execute_query(create_table_dados_clinicos())
+    
+    execute_query(connection, query)

@@ -1,7 +1,6 @@
-from db import execute_query
-from db import execute_query
+from database import execute_query
 
-def create_table_dados_atendimento():
+def create_table_dados_atendimento(connection):
     query = """
         CREATE TABLE dados_atendimento (
             cod_atendimento SERIAL PRIMARY KEY,
@@ -31,6 +30,5 @@ def create_table_dados_atendimento():
             out_amostra VARCHAR(1)
         )
         """
-    return query
 
-execute_query(create_table_dados_atendimento())
+    execute_query(connection, query)

@@ -1,7 +1,6 @@
-from db import execute_query
-from db import execute_query
+from database import execute_query
 
-def create_table_conclusao():
+def create_table_conclusao(connection):
     query = """
         CREATE TABLE conclusao (
             classi_fin VARCHAR(1),
@@ -16,6 +15,5 @@ def create_table_conclusao():
             reg_prof VARCHAR(15)
         )
         """
-    return query
 
-execute_query(create_table_conclusao())
+    execute_query(connection, query)

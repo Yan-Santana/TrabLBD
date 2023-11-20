@@ -1,4 +1,5 @@
 # Arquivo responsável por realizar a conexão com o banco de dados e executar as queries
+# Além de ser o indexador do pacote "database"
 
 import psycopg2
 
@@ -8,7 +9,7 @@ DB_PASSWORD = "minhasenha"
 DB_HOST = "localhost"
 DB_PORT = "5433"
 
-def connect():
+def create_connection():
     try:
         conn = psycopg2.connect(
             database = DB_NAME,
@@ -23,12 +24,10 @@ def connect():
         print(f"Erro na conexão com o banco de dados: {e}")
 
 
-def execute_query(query):
-    conn = connect()
-    cur = conn.cursor()
+def execute_query(connection, query):
+    cursor = connection.cursor()
     
-    cur.execute(query)
+    cursor.execute(query)
     
-    conn.commit()
-    cur.close()
-    conn.close()
+    connection.commit()
+    cursor.close()

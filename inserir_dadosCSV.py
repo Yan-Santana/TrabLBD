@@ -1,10 +1,9 @@
-from db import connect
 from utilitarios import paciente
 import csv
 import psycopg2
 
-def inserir_dados():
-    with connect() as conn, conn.cursor() as cur:
+def inserir_dados(connection):
+    with connection.cursor() as cursor:
         with open('entrada.csv', 'r') as f:
             csv_reader = csv.DictReader(f, delimiter = ';')
             next(csv_reader)  # Pule o cabeçalho
@@ -24,12 +23,12 @@ def inserir_dados():
                         );
                     """
                     
-                    cur.execute(sql_paciente, dados_paciente)
+                    cursor.execute(sql_paciente, dados_paciente)
                     
             except (csv.Error, psycopg2.Error) as e:
                 print(f"Erro encontrado -> {e}")
 
-        conn.commit()
-        print("Print de dados inseridos com sucesso!")
+        connection.commit()
+        cursor.close()
 
-inserir_dados()
+        print("Print de dados inseridos com sucesso!")

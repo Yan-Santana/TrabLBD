@@ -1,6 +1,6 @@
-from db import execute_query
+from database import execute_query
 
-def create_table_paciente():
+def create_table_paciente(connection):
     query = """
         CREATE TABLE IF NOT EXISTS paciente (
         id_paciente SERIAL PRIMARY KEY,
@@ -14,6 +14,5 @@ def create_table_paciente():
         pac_cocbo VARCHAR(6)
     )
     """
-    return query
 
-execute_query(create_table_paciente())
+    execute_query(connection, query)

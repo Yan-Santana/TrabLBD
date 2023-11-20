@@ -1,7 +1,6 @@
-from db import execute_query
-from db import execute_query
+from database import execute_query
 
-def create_table_dados_laboratorial():
+def create_table_dados_laboratorial(connection):
     query = """
         CREATE TABLE dados_laboratoriais (
             requi_gal SERIAL PRIMARY KEY,
@@ -56,7 +55,5 @@ def create_table_dados_laboratorial():
             dt_res DATE
         )
         """
-    return query
 
-
-execute_query(create_table_dados_laboratorial())
+    execute_query(connection, query)
