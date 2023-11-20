@@ -2,7 +2,7 @@ from database import execute_query
 
 def create_table(connection):
     query = """
-    CREATE TABLE notificacao (
+    CREATE TABLE IF NOT EXISTS notificacao (
         id_notificacao SERIAL PRIMARY KEY,
         id_paciente INTEGER REFERENCES paciente(id_paciente),
         nu_notific VARCHAR(12),

@@ -2,7 +2,7 @@ from database import execute_query
 
 def create_table(connection):
     query = """
-        CREATE TABLE dados_clinicos (
+        CREATE TABLE IF NOT EXISTS dados_clinicos (
             id_dados_clinicos SERIAL PRIMARY KEY,
             id_paciente INTEGER REFERENCES paciente(id_paciente),
             histo_vgm VARCHAR(1),

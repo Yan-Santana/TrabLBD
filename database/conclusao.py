@@ -2,7 +2,7 @@ from database import execute_query
 
 def create_table(connection):
     query = """
-        CREATE TABLE conclusao (
+        CREATE TABLE IF NOT EXISTS conclusao (
             classi_fin VARCHAR(1),
             classi_out VARCHAR(30),
             criterio VARCHAR(1),

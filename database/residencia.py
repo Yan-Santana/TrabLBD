@@ -1,8 +1,8 @@
-from db import execute_query
+from database import execute_query
 
 def create_table(connection):
     query = """
-        CREATE TABLE residencia (
+        CREATE TABLE IF NOT EXISTS residencia (
             id_residencia SERIAL PRIMARY KEY,
             id_paciente INTEGER REFERENCES paciente(id_paciente),
             nu_cep VARCHAR(8),

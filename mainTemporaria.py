@@ -30,7 +30,7 @@ conn = psycopg2.connect (
 # Criar as tabelas
 cur = conn.cursor()
 cur.execute("""
-    CREATE TABLE paciente (
+    CREATE TABLE IF NOT EXISTSpaciente (
         id_paciente SERIAL PRIMARY KEY,
         nm_paciente VARCHAR(70),
         nu_cpf VARCHAR(15),
@@ -48,7 +48,7 @@ cur.execute("""
 """)
 
 cur.execute("""
-    CREATE TABLE notificacao (
+    CREATE TABLE IF NOT EXISTSnotificacao (
         id_notificacao SERIAL PRIMARY KEY,
         id_paciente INTEGER REFERENCES paciente(id_paciente),
         nu_notific VARCHAR(12),
@@ -61,7 +61,7 @@ cur.execute("""
 """)
 
 cur.execute("""
-    CREATE TABLE residencia (
+    CREATE TABLE IF NOT EXISTSresidencia (
         id_residencia SERIAL PRIMARY KEY,
         id_paciente INTEGER REFERENCES paciente(id_paciente),
         nu_cep VARCHAR(8),
@@ -79,7 +79,7 @@ cur.execute("""
 """)
 
 cur.execute("""
-    CREATE TABLE dados_clinicos (
+    CREATE TABLE IF NOT EXISTSdados_clinicos (
         id_dados_clinicos SERIAL PRIMARY KEY,
         id_paciente INTEGER REFERENCES paciente(id_paciente),
         histo_vgm VARCHAR(1),
@@ -134,7 +134,7 @@ cur.execute("""
 """)
 
 cur.execute("""
-    CREATE TABLE dados_atendimento (
+    CREATE TABLE IF NOT EXISTSdados_atendimento (
         cod_atendimento SERIAL PRIMARY KEY,
         id_dados_clinicos INTEGER REFERENCES dados_clinicos(id_paciente),
         antiviral VARCHAR(1),
@@ -164,7 +164,7 @@ cur.execute("""
 """)
 
 cur.execute("""
-    CREATE TABLE dados_laboratoriais (
+    CREATE TABLE IF NOT EXISTSdados_laboratoriais (
         requi_gal SERIAL PRIMARY KEY,
         tp_tes_an INTEGER,
         dt_res_an DATE,
@@ -219,7 +219,7 @@ cur.execute("""
 """)
 
 cur.execute("""
-    CREATE TABLE conclusao (
+    CREATE TABLE IF NOT EXISTSconclusao (
         classi_fin VARCHAR(1),
         classi_out VARCHAR(30),
         criterio VARCHAR(1),
