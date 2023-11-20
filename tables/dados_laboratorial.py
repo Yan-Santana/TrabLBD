@@ -1,5 +1,5 @@
-from db import execute_query, commit_changes
-from db import execute_query, commit_changes
+from db import execute_query
+from db import execute_query
 
 def create_table_dados_laboratorial():
     query = """
@@ -58,6 +58,5 @@ def create_table_dados_laboratorial():
         """
     return query
 
-   
+
 execute_query(create_table_dados_laboratorial())
-commit_changes()

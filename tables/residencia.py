@@ -1,5 +1,5 @@
-from db import execute_query, commit_changes
-from db import execute_query, commit_changes
+from db import execute_query
+from db import execute_query
 
 def create_table_residencia():
     query = """
@@ -21,6 +21,5 @@ def create_table_residencia():
     """
     return query
 
-   
+
 execute_query(create_table_residencia())
-commit_changes()

@@ -1,5 +1,5 @@
-from db import execute_query, commit_changes
-from db import execute_query, commit_changes
+from db import execute_query
+from db import execute_query
 
 def create_table_conclusao():
     query = """
@@ -17,6 +17,5 @@ def create_table_conclusao():
         )
         """
     return query
-   
+
 execute_query(create_table_conclusao())
-commit_changes()

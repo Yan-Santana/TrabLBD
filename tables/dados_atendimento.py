@@ -1,5 +1,5 @@
-from db import execute_query, commit_changes
-from db import execute_query, commit_changes
+from db import execute_query
+from db import execute_query
 
 def create_table_dados_atendimento():
     query = """
@@ -32,6 +32,5 @@ def create_table_dados_atendimento():
         )
         """
     return query
-   
+
 execute_query(create_table_dados_atendimento())
-commit_changes()

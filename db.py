@@ -32,8 +32,3 @@ def execute_query(query):
     conn.commit()
     cur.close()
     conn.close()
-
-def commit_changes():
-    conn = connect()
-    conn.commit()
-    conn.close()

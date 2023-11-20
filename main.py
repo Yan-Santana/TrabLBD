@@ -25,5 +25,4 @@ tables.paciente.create_table_paciente()
 
 inserir_dadosCSV.inserir_dados()
 
-conn.commit()
 conn.close()
