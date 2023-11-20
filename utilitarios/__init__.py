@@ -1,6 +1,6 @@
 from utilitarios import paciente as paciente_utils
 from utilitarios import residencia as residencia_utils
-from database import paciente
+from database import paciente, residencia
 
 import psycopg2
 import csv
@@ -16,6 +16,7 @@ def inserir_dados(connection):
                 dados_residencia = residencia_utils.obter_dados_residencia_csv(row)
 
                 paciente.inserir(connection, dados_paciente)
+                residencia.inserir(connection, dados_residencia)
 
         except (csv.Error, psycopg2.Error) as e:
             print(f"Erro encontrado -> {e}")
