@@ -1,34 +1,22 @@
-from utilitarios import paciente
-import csv
+from utilitarios import paciente as paciente_utils
+from database import paciente
+
 import psycopg2
+import csv
 
 def inserir_dados(connection):
-    with connection.cursor() as cursor:
-        with open('entrada.csv', 'r') as file:
-            csv_reader = csv.DictReader(file, delimiter = ';')
-            next(csv_reader)  # Pule o cabeçalho
+    with open('entrada.csv', 'r') as file:
+        csv_reader = csv.DictReader(file, delimiter = ';')
+        next(csv_reader)  # Pule o cabeçalho
 
-            try:
-                for row in csv_reader:
-                    dados_paciente = paciente.obter_dados_paciente_csv(row)
-                    sql_paciente = """
-                        INSERT INTO paciente (
-                            cs_sexo, dt_nasc, nu_idade_n,
-                            tp_idade, cs_raca, cs_gestant, cs_escol_n,
-                            pac_cocbo
-                        ) VALUES (
-                            %(cs_sexo)s, %(dt_nasc)s, %(nu_idade_n)s,
-                            %(tp_idade)s, %(cs_raca)s, %(cs_gestant)s, %(cs_escol_n)s,
-                            %(pac_cocbo)s
-                        );
-                    """
-                    
-                    cursor.execute(sql_paciente, dados_paciente)
-                    
-            except (csv.Error, psycopg2.Error) as e:
-                print(f"Erro encontrado -> {e}")
+        try:
+            for row in csv_reader:
+                dados_paciente = paciente_utils.obter_dados_paciente_csv(row)
 
-        connection.commit()
-        cursor.close()
+                paciente.inserir(connection, dados_paciente)
 
-        print("Print de dados inseridos com sucesso!")
+        except (csv.Error, psycopg2.Error) as e:
+            print(f"Erro encontrado -> {e}")
+
+    connection.commit()
+    print("Dados inseridos com sucesso!")

@@ -23,4 +23,5 @@ conclusao.create_table(database_connection)
 
 utilitarios.inserir_dados(database_connection)
 
+database_connection.commit()
 database_connection.close()

@@ -24,10 +24,9 @@ def create_connection():
         print(f"Erro na conexão com o banco de dados: {e}")
 
 
-def execute_query(connection, query):
+def execute_query(connection, query, data = None):
     cursor = connection.cursor()
-    
-    cursor.execute(query)
-    
-    connection.commit()
+    resultado = cursor.execute(query, data)    
     cursor.close()
+
+    return resultado

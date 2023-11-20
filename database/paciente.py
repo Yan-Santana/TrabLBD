@@ -1,5 +1,20 @@
 from database import execute_query
 
+def inserir(connection, dados):
+    sql_paciente = """
+        INSERT INTO paciente (
+            cs_sexo, dt_nasc, nu_idade_n,
+            tp_idade, cs_raca, cs_gestant, cs_escol_n,
+            pac_cocbo
+        ) VALUES (
+            %(cs_sexo)s, %(dt_nasc)s, %(nu_idade_n)s,
+            %(tp_idade)s, %(cs_raca)s, %(cs_gestant)s, %(cs_escol_n)s,
+            %(pac_cocbo)s
+        );
+    """
+
+    return execute_query(connection, sql_paciente, dados)
+
 def create_table(connection):
     query = """
         CREATE TABLE IF NOT EXISTS paciente (
