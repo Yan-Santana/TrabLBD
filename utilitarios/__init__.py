@@ -1,2 +1,34 @@
-# Esse arquivo serve para que o Python reconheca a 
-# pasta "tables" como um pacote e possa importar seus módulos. 
+from utilitarios import paciente
+import csv
+import psycopg2
+
+def inserir_dados(connection):
+    with connection.cursor() as cursor:
+        with open('entrada.csv', 'r') as file:
+            csv_reader = csv.DictReader(file, delimiter = ';')
+            next(csv_reader)  # Pule o cabeçalho
+
+            try:
+                for row in csv_reader:
+                    dados_paciente = paciente.obter_dados_paciente_csv(row)
+                    sql_paciente = """
+                        INSERT INTO paciente (
+                            cs_sexo, dt_nasc, nu_idade_n,
+                            tp_idade, cs_raca, cs_gestant, cs_escol_n,
+                            pac_cocbo
+                        ) VALUES (
+                            %(cs_sexo)s, %(dt_nasc)s, %(nu_idade_n)s,
+                            %(tp_idade)s, %(cs_raca)s, %(cs_gestant)s, %(cs_escol_n)s,
+                            %(pac_cocbo)s
+                        );
+                    """
+                    
+                    cursor.execute(sql_paciente, dados_paciente)
+                    
+            except (csv.Error, psycopg2.Error) as e:
+                print(f"Erro encontrado -> {e}")
+
+        connection.commit()
+        cursor.close()
+
+        print("Print de dados inseridos com sucesso!")
