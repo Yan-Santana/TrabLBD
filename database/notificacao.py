@@ -1,6 +1,6 @@
 from database import execute_query
 
-def create_table_notificacao(connection):
+def create_table(connection):
     query = """
     CREATE TABLE notificacao (
         id_notificacao SERIAL PRIMARY KEY,

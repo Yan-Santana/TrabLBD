@@ -1,6 +1,6 @@
 from database import execute_query
 
-def create_table_conclusao(connection):
+def create_table(connection):
     query = """
         CREATE TABLE conclusao (
             classi_fin VARCHAR(1),

@@ -1,6 +1,6 @@
 from database import execute_query
 
-def create_table_paciente(connection):
+def create_table(connection):
     query = """
         CREATE TABLE IF NOT EXISTS paciente (
         id_paciente SERIAL PRIMARY KEY,

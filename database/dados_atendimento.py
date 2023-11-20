@@ -1,6 +1,6 @@
 from database import execute_query
 
-def create_table_dados_atendimento(connection):
+def create_table(connection):
     query = """
         CREATE TABLE dados_atendimento (
             cod_atendimento SERIAL PRIMARY KEY,

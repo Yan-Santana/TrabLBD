@@ -1,6 +1,6 @@
 from db import execute_query
 
-def create_table_residencia(connection):
+def create_table(connection):
     query = """
         CREATE TABLE residencia (
             id_residencia SERIAL PRIMARY KEY,

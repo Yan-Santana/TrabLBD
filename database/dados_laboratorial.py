@@ -1,6 +1,6 @@
 from database import execute_query
 
-def create_table_dados_laboratorial(connection):
+def create_table(connection):
     query = """
         CREATE TABLE dados_laboratoriais (
             requi_gal SERIAL PRIMARY KEY,

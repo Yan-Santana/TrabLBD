@@ -16,13 +16,13 @@ import inserir_dadosCSV
 
 database_connection = database.create_connection()
 
-paciente.create_table_paciente(database_connection)
-#tables.residencia.create_table_residencia()
-#tables.notificacao.create_table_notificacao()
-#tables.dados_clinicos.create_table_dados_clinicos()
-#tables.dados_atendimento.create_table_dados_atendimento()
-#tables.dados_laboratorial.create_table_dados_laboratorial()
-#tables.conclusao.create_table_conclusao()
+paciente.create_table(database_connection)
+#residencia.create_table()
+#notificacao.create_table()
+#dados_clinicos.create_table()
+#dados_atendimento.create_table()
+#dados_laboratorial.create_table()
+#conclusao.create_table()
 
 inserir_dadosCSV.inserir_dados(database_connection)
 
