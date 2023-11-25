@@ -63,9 +63,55 @@ class DadosLaboratoriais {
     `);
   }
 
-  async criar() {
+  async inserirDadosLaboratoriais(dados) {
+  const dtResan = tratarDataNascimento(dados.DT_RES_AN);
+  const dtPcr = tratarDataNascimento(dados.DT_PCR);
+  const dtCorSor = tratarDataNascimento(dados.DT_COR_SOR);
+  const dtRes = tratarDataNascimento(dados.DT_RES);
 
+  dados = {
+    ...dados,
+    dt_res_an: dtResan,
+    dt_pcr: dtPcr,
+    dt_cor_sor: dtCorSor,
+    dt_res: dtRes,
   }
+
+  const { rows } = await this.database.raw(`
+  INSERT INTO dados_laboratoriais (
+    tp_tes_an, dt_res_an, res_an, lab_an,
+    co_lab_an, pos_an_flu, tp_flu_an, pos_an_out,
+    an_sars2, an_vsr, vsr, an_para1,
+    an_para2, an_para3, an_adeno, an_outro,
+    ds_an_out, pcr_resul, dt_pcr, pos_pcrflu,
+    tp_flu_pcr, pcr_fluasu, fluasu_out, pcr_flubli,
+    flubli_out, pos_pcrout, pcr_sars2, pcr_vsr,
+    pcr_para1, pcr_para2, pcr_para3, pcr_para4,
+    pcr_adeno, pcr_metap, pcr_boca, pcr_rino,
+    pcr_outro, ds_pcr_out, lab_pcr, tp_am_sor,
+    sor_out, dt_cor_sor, tp_sor, out_sor,
+    res_sor, res_igg, res_igm, res_iga,
+    dt_res
+  ) VALUES (
+    :TP_TES_AN, :DT_RES_AN, :RES_AN, :LAB_AN,
+    :CO_LAB_AN, :POS_AN_FLU, :TP_FLU_AN, :POS_AN_OUT,
+    :AN_SARS2, :AN_VSR, :VSR, :AN_PARA1,
+    :AN_PARA2, :AN_PARA3, :AN_ADENO, :AN_OUTRO,
+    :DS_AN_OUT, :PCR_RESUL, :DT_PCR, :POS_PCRFLU,
+    :TP_FLU_PCR, :PCR_FLUASU, :FLUASU_OUT, :PCR_FLUBLI,
+    :FLUBLI_OUT, :POS_PCROUT, :PCR_SARS2, :PCR_VSR,
+    :PCR_PARA1, :PCR_PARA2, :PCR_PARA3, :PCR_PARA4,
+    :PCR_ADENO, :PCR_METAP, :PCR_BOCA, :PCR_RINO,
+    :PCR_OUTRO, :DS_PCR_OUT, :LAB_PCR, :TP_AM_SOR,
+    :SOR_OUT, :DT_COR_SOR, :TP_SOR, :OUT_SOR,
+    :RES_SOR, :RES_IGG, :RES_IGM, :RES_IGA,
+    :DT_RES
+  ) RETURNING *;
+`, dados);
+
+return rows;
+}
+
 }
 
 module.exports = { DadosLaboratoriais };
