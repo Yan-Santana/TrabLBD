@@ -3,7 +3,7 @@ const {
   dadosAtendimento,
   dadosClinicos,
   notificacao,
-  residencia,
+  hospitais,
   conclusao,
   paciente
 } = require('./database');
@@ -14,7 +14,7 @@ const path = require('path');
 const main = async () => {
   // Cria as tabelas no banco de dados se não existir
   await paciente.criarTabela();
-  await residencia.criarTabela();
+  await hospitais.criarTabela();
   await dadosLaboratoriais.criarTabela();
   await dadosClinicos.criarTabela();
   await dadosAtendimento.criarTabela();

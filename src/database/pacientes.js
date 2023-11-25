@@ -25,7 +25,6 @@ class Paciente {
   }
 
   async criar(dados) {
-    // const dataSplitada = dados.DT_NASC.split('/');
     const dataNascimentoTratada = tratarData(dados.DT_NASC);
     dados = {
       ...dados,

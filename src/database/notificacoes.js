@@ -1,3 +1,5 @@
+const { tratarData } = require('../utils/tratadorDeDados');
+
 class Notificacao {
   /** 
    * @param {Knex} database 
@@ -19,7 +21,12 @@ class Notificacao {
     `);
   }
 
-  async criar() {
+  async criar(dados) {
+    const dataNotific = tratarData(dados.DT_NOTIFIC);
+    dados = {
+      ...dados,
+      DT_NOTIFIC: dataNotific,
+    }
     const { rows } = await this.database.raw(`
       INSERT INTO notificacao (
         dt_notific, sg_uf_not,
@@ -27,7 +34,7 @@ class Notificacao {
       ) VALUES (
         :DT_NOTIFIC, :SG_UF_NOT, :SEM_NOT, :ID_MUNICIP, :ID_REGIONA
       ) RETURNING *;
-    `);
+    `, dados);
 
     return rows[0];
   }
