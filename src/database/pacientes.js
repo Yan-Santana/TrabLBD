@@ -22,8 +22,27 @@ class Paciente {
     `);
   }
 
-  async criar() {
+  async criar(dados) {
+    const dataSplitada = dados.DT_NASC.split('/');
+    const dataNascimentoTratada = new Date(Date.parse(`${dataSplitada[1]}/${dataSplitada[0]}/${dataSplitada[2]}`));
+    dados = {
+      ...dados,
+      DT_NASC: dataNascimentoTratada,
+    }
 
+    const { rows } = await this.database.raw(`
+      INSERT INTO paciente (
+        cs_sexo, dt_nasc, nu_idade_n,
+        tp_idade, cs_raca, cs_gestant, cs_escol_n,
+        pac_cocbo
+      ) VALUES (
+        :CS_SEXO, :DT_NASC, :NU_IDADE_N,
+        :TP_IDADE, :CS_RACA, :CS_GESTANT, :CS_ESCOL_N, 
+        :PAC_COCBO
+      ) RETURNING *;
+    `, dados);
+
+    return rows[0];
   }
 }
 
