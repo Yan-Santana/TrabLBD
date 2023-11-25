@@ -12,6 +12,7 @@ const importarDados = require('./utils/importarDados');
 const path = require('path');
 
 const main = async () => {
+  // Cria as tabelas no banco de dados se não existir
   await paciente.criarTabela();
   await residencia.criarTabela();
   await dadosLaboratoriais.criarTabela();
@@ -23,6 +24,7 @@ const main = async () => {
   console.log('Banco de dados sincronizado com sucesso!');
   console.log('Iniciando importação dos dados');
 
+  // Importa os dados do arquivo CSV
   await importarDados(path.resolve(__dirname, '..', 'dados.csv'));
 
   console.log('Importação concluída com sucesso!');

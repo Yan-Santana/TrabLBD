@@ -8,12 +8,14 @@ const { Residencia } = require('./residencias');
 
 const knex = require('knex');
 
+// Configurações de conexão com o banco de dados	
 const DB_NAME = "SRAG"
 const DB_USER = "postgres"
 const DB_PASSWORD = "minhasenha"
 const DB_HOST = "localhost"
 const DB_PORT = "5433"
 
+// Instância de conexão com o banco de dados
 const database = knex({
   client: 'pg',
   connection: {
@@ -25,6 +27,7 @@ const database = knex({
   }
 });
 
+// Exporta todas as instâncias das entidades
 module.exports = {
   conclusao: new Conclusao(database),
   dadosAtendimento: new DadosAtendimento(database),
