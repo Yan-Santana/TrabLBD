@@ -1,6 +1,6 @@
 const CsvReadableStream = require('csv-reader');
 const fs = require('fs');
-const { paciente, hospital, notificacao, dadosClinicos } = require('../database');
+const { paciente, hospital, notificacao, dadosClinicos, conclusao } = require('../database');
 
 class Fila {
   fila = [];
@@ -57,6 +57,7 @@ module.exports = async (filePath) => {
     const idHospital = await hospital.pegarIdOuCriar(linha);
     const idDadosClinicos = await dadosClinicos.criar(novoPaciente.id_paciente, linha);
     const novaNotificacao = await notificacao.criar(idDadosClinicos, linha);
+    const novaConclusao = await conclusao.criar(idDadosClinicos, linha);
   };
 
   return new Promise(async (resolve, reject) => {
@@ -67,8 +68,6 @@ module.exports = async (filePath) => {
     for await (const linha of inputStream) {
       fila.inserir(() => inserirLinha(linha));
     }
-
-
 
     // Finaliza a função
     resolve();
