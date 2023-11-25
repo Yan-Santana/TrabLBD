@@ -1,4 +1,4 @@
-class Residencia {
+class Hospital {
   /** 
    * @param {Knex} database 
    */
@@ -8,12 +8,12 @@ class Residencia {
 
   async criarTabela() {
     await this.database.raw(`
-      CREATE TABLE IF NOT EXISTS residencia (
-        id_residencia SERIAL PRIMARY KEY,
-        id_paciente INTEGER REFERENCES paciente(id_paciente),
-        sg_uf VARCHAR(2),
+      CREATE TABLE IF NOT EXISTS hospital (
+        id_hospital SERIAL PRIMARY KEY,
+        id_unidade VARCHAR(64),
         id_rg_resi VARCHAR(64),
         id_mn_resi VARCHAR(64),
+        sg_uf VARCHAR(2),
         cs_zona VARCHAR(1),
         id_pais VARCHAR(20)
       )
@@ -40,4 +40,4 @@ class Residencia {
   }
 }
 
-module.exports = { Residencia };
+module.exports = { Hospital };
