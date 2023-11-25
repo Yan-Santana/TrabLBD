@@ -68,6 +68,8 @@ module.exports = async (filePath) => {
       fila.inserir(() => inserirLinha(linha));
     }
 
+
+
     // Finaliza a função
     resolve();
   });
