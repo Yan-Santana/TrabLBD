@@ -12,4 +12,16 @@ function tratarData(data) {
         : null;
 }
 
-module.exports = { tratarData };
+
+function tratarLinha(linha) {
+    const atributos = Object.keys(linha);
+
+    for (const atributo of atributos) {
+        if (linha[atributo] === '') {
+            linha[atributo] = null;
+        }
+    }
+    return linha;
+}
+
+module.exports = { tratarData, tratarLinha };
