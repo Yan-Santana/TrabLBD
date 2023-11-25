@@ -7,8 +7,6 @@ const { paciente, hospital, notificacao, dadosClinicos } = require('../database'
  */
 module.exports = async (filePath) => {
   const leitorCsv = new CsvReadableStream({
-    parseNumbers: true,
-    parseBooleans: true,
     trim: true,
     delimiter: ';',
     asObject: true
@@ -27,8 +25,8 @@ module.exports = async (filePath) => {
 
   return new Promise(async (resolve, reject) => {
     // Leitura assíncrona do arquivo CSV 
-    for await (const linha of inputStream) {
-      await inserirLinha(linha);
+    for (const linha of inputStream) {
+      inserirLinha(linha);
     }
 
     // Finaliza a função
