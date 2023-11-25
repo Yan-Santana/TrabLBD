@@ -23,7 +23,7 @@ const main = async () => {
   console.log('Banco de dados sincronizado com sucesso!');
   console.log('Iniciando importação dos dados');
 
-  await importarDados(path.resolve(__dirname, '..', 'entrada.csv'));
+  await importarDados(path.resolve(__dirname, '..', 'dados.csv'));
 
   console.log('Importação concluída com sucesso!');
   return process.exit(0);

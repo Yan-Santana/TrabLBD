@@ -24,7 +24,7 @@ class Paciente {
 
   async criar(dados) {
     const dataSplitada = dados.DT_NASC.split('/');
-    const dataNascimentoTratada = new Date(Date.parse(`${dataSplitada[1]}/${dataSplitada[0]}/${dataSplitada[2]}`));
+    const dataNascimentoTratada = dataSplitada.length !== 1 ? new Date(Date.parse(`${dataSplitada[1]}/${dataSplitada[0]}/${dataSplitada[2]}`)) : null;
     dados = {
       ...dados,
       DT_NASC: dataNascimentoTratada,
