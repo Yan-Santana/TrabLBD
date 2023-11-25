@@ -25,9 +25,11 @@ module.exports = async (filePath) => {
 
   return new Promise(async (resolve, reject) => {
     // Leitura assíncrona do arquivo CSV 
-    for (const linha of inputStream) {
+    for await(const linha of inputStream) {
       inserirLinha(linha);
     }
+
+
 
     // Finaliza a função
     resolve();
