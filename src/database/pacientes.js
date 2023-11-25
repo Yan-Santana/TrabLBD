@@ -1,3 +1,5 @@
+const { tratarData } = require('../utils/tratadorDeDados');
+
 class Paciente {
   /** 
    * @param {Knex} database 
@@ -23,8 +25,8 @@ class Paciente {
   }
 
   async criar(dados) {
-    const dataSplitada = dados.DT_NASC.split('/');
-    const dataNascimentoTratada = dataSplitada.length !== 1 ? new Date(Date.parse(`${dataSplitada[1]}/${dataSplitada[0]}/${dataSplitada[2]}`)) : null;
+    // const dataSplitada = dados.DT_NASC.split('/');
+    const dataNascimentoTratada = tratarData(dados.DT_NASC);
     dados = {
       ...dados,
       DT_NASC: dataNascimentoTratada,
