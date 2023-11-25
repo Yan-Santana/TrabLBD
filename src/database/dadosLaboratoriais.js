@@ -10,6 +10,7 @@ class DadosLaboratoriais {
     await this.database.raw(`
       CREATE TABLE IF NOT EXISTS dados_laboratoriais (
         requi_gal SERIAL PRIMARY KEY,
+        id_dados_clinicos INTEGER,
         tp_tes_an INTEGER,
         dt_res_an DATE,
         res_an VARCHAR(1),
@@ -20,7 +21,6 @@ class DadosLaboratoriais {
         pos_an_out VARCHAR(1),
         an_sars2 VARCHAR(1),
         an_vsr VARCHAR(1),
-        vsr VARCHAR(1),
         an_para1 VARCHAR(1),
         an_para2 VARCHAR(1),
         an_para3 VARCHAR(1),
@@ -63,7 +63,7 @@ class DadosLaboratoriais {
     `);
   }
 
-  async inserirDadosLaboratoriais(dados) {
+  async inserirDadosLaboratoriais(idDadosClinicos, dados) {
   const dtResan = tratarDataNascimento(dados.DT_RES_AN);
   const dtPcr = tratarDataNascimento(dados.DT_PCR);
   const dtCorSor = tratarDataNascimento(dados.DT_COR_SOR);
@@ -75,13 +75,14 @@ class DadosLaboratoriais {
     dt_pcr: dtPcr,
     dt_cor_sor: dtCorSor,
     dt_res: dtRes,
+    ID_DADOS_CLINICOS: idDadosClinicos,
   }
 
   const { rows } = await this.database.raw(`
   INSERT INTO dados_laboratoriais (
     tp_tes_an, dt_res_an, res_an, lab_an,
     co_lab_an, pos_an_flu, tp_flu_an, pos_an_out,
-    an_sars2, an_vsr, vsr, an_para1,
+    an_sars2, an_vsr, an_para1,
     an_para2, an_para3, an_adeno, an_outro,
     ds_an_out, pcr_resul, dt_pcr, pos_pcrflu,
     tp_flu_pcr, pcr_fluasu, fluasu_out, pcr_flubli,
@@ -91,7 +92,7 @@ class DadosLaboratoriais {
     pcr_outro, ds_pcr_out, lab_pcr, tp_am_sor,
     sor_out, dt_cor_sor, tp_sor, out_sor,
     res_sor, res_igg, res_igm, res_iga,
-    dt_res
+    dt_res, id_dados_clinicos
   ) VALUES (
     :TP_TES_AN, :DT_RES_AN, :RES_AN, :LAB_AN,
     :CO_LAB_AN, :POS_AN_FLU, :TP_FLU_AN, :POS_AN_OUT,
@@ -105,11 +106,11 @@ class DadosLaboratoriais {
     :PCR_OUTRO, :DS_PCR_OUT, :LAB_PCR, :TP_AM_SOR,
     :SOR_OUT, :DT_COR_SOR, :TP_SOR, :OUT_SOR,
     :RES_SOR, :RES_IGG, :RES_IGM, :RES_IGA,
-    :DT_RES
+    :DT_RES, :ID_DADOS_CLINICAOS
   ) RETURNING *;
 `, dados);
 
-return rows;
+return rows[0];
 }
 
 }
