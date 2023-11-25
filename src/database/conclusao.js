@@ -19,10 +19,7 @@ class Conclusao {
         criterio VARCHAR(1),
         evolucao VARCHAR(1),
         dt_evoluca DATE,
-        dt_encerra DATE,
-        observa VARCHAR(999),
-        nome_prof VARCHAR(60),
-        reg_prof VARCHAR(15)
+        dt_encerra DATE
       )
     `);
   }
@@ -41,13 +38,11 @@ class Conclusao {
     INSERT INTO conclusao (
       id_cod_atendimento, classi_fin, classi_out,
       criterio, evolucao, dt_evoluca,
-      dt_encerra, observa,
-      nome_prof, reg_prof
+      dt_encerra
     ) VALUES (
       :ID_COD_ATENDIMENTO, :CLASSI_FIN, :CLASSI_OUT,
       :CRITERIO, :EVOLUCAO, :DT_EVOLUCA,
-      :DT_ENCERRA, :OBSERVA,
-      :NOME_PROF, :REG_PROF
+      :DT_ENCERRA
     ) RETURNING *;
   `, dados);
 
