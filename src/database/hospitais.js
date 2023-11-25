@@ -20,23 +20,27 @@ class Hospital {
     `);
   }
 
-  async criar(idPaciente, dados) {
-    dados = {
-      ...dados,
-      ID_PACIENTE: idPaciente
-    };
+  async pegarIdOuCriar(dados) {
+    const hospital = await this.database.raw('SELECT id_hospital FROM hospital WHERE id_unidade = :ID_UNIDADE LIMIT 1', dados);
 
+    // Se o hospital já existe, retorna o ID
+    if (hospital.rows.length > 0) {
+      return hospital.rows[0].id_hospital;
+    }
+
+    // Se não existe, cria um novo hospital
     const { rows } = await this.database.raw(`
       INSERT INTO residencia (
-        sg_uf, id_rg_resi, id_mn_resi,
+        id_unidade, sg_uf, id_rg_resi, id_mn_resi,
         cs_zona, id_pais, id_paciente
       ) VALUES ( 
+        :ID_UNIDADE, 
         :SG_UF, :ID_RG_RESI, :ID_MN_RESI,
-        :CS_ZONA, :ID_PAIS, :ID_PACIENTE
-      ) RETURNING *;
+        :CS_ZONA, :ID_PAIS
+      ) RETURNING id_hospital;
     `, dados);
 
-    return rows[0];
+    return rows[0].id_hospital;
   }
 }
 
