@@ -12,6 +12,7 @@ class Notificacao {
     await this.database.raw(`
       CREATE TABLE IF NOT EXISTS notificacao (
         id_notificacao SERIAL PRIMARY KEY,
+        id_dados_clinicos INTEGER,
         dt_notific DATE,
         sg_uf_not VARCHAR(2),
         sem_not VARCHAR(64),
@@ -21,18 +22,20 @@ class Notificacao {
     `);
   }
 
-  async criar(dados) {
+  async criar(idDadosClinicos, dados) {
     const dataNotific = tratarData(dados.DT_NOTIFIC);
     dados = {
       ...dados,
       DT_NOTIFIC: dataNotific,
+      ID_DADOS_CLINICOS: idDadosClinicos,
     }
+
     const { rows } = await this.database.raw(`
       INSERT INTO notificacao (
-        dt_notific, sg_uf_not,
+        id_dados_clinicos, dt_notific, sg_uf_not,
         sem_not, id_municip, id_regiona
       ) VALUES (
-        :DT_NOTIFIC, :SG_UF_NOT, :SEM_NOT, :ID_MUNICIP, :ID_REGIONA
+        :ID_DADOS_CLINICOS, :DT_NOTIFIC, :SG_UF_NOT, :SEM_NOT, :ID_MUNICIP, :ID_REGIONA
       ) RETURNING *;
     `, dados);
 

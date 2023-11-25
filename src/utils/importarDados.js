@@ -1,6 +1,6 @@
 const CsvReadableStream = require('csv-reader');
 const fs = require('fs');
-const { paciente, hospital } = require('../database');
+const { paciente, hospital, notificacao, dadosClinicos } = require('../database');
 
 /**
  * @param {string} filePath 
@@ -21,6 +21,8 @@ module.exports = async (filePath) => {
   const inserirLinha = async (linha) => {
     const novoPaciente = await paciente.criar(linha);
     const idHospital = await hospital.pegarIdOuCriar(linha);
+    const idDadosClinicos = await dadosClinicos.criar(novoPaciente.id_paciente, linha);
+    const novaNotificacao = await notificacao.criar(idDadosClinicos, linha);
   };
 
   return new Promise(async (resolve, reject) => {
