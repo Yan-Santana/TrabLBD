@@ -22,18 +22,6 @@ class DadosClinicos {
         nosocomial VARCHAR(3),
         ave_suino VARCHAR(3),
         out_anim VARCHAR(60),
-        febre VARCHAR(3),
-        tosse VARCHAR(3),
-        garganta VARCHAR(3),
-        dispneia VARCHAR(3),
-        desc_resp VARCHAR(3),
-        saturacao VARCHAR(3),
-        diarreia VARCHAR(3),
-        vomito VARCHAR(3),
-        dor_abd VARCHAR(3),
-        fadiga VARCHAR(3),
-        perd_olft VARCHAR(3),
-        perd_pala VARCHAR(3),
         outro_sin VARCHAR(3),
         outro_des VARCHAR(60),
         fator_risc VARCHAR(3),
@@ -58,7 +46,7 @@ class DadosClinicos {
         dt_vac_mae DATE NULL,
         m_amamenta VARCHAR(3),
         dt_doseuni DATE NULL,
-        dt_3_dose DATE NULL,
+        DT_1_DOSE DATE NULL,
         dt_2_dose DATE NULL
       )
     `);
@@ -69,7 +57,7 @@ class DadosClinicos {
       ...dados,
       ID_PACIENTE: idPaciente,
       DT_DOSEUNI: tratarData(dados.DT_DOSEUNI),
-      DT_3_DOSE: tratarData(dados.DT_3_DOSE),
+      DT_1_DOSE: tratarData(dados.DT_1_DOSE),
       DT_2_DOSE: tratarData(dados.DT_2_DOSE),
       DT_UT_DOSE: tratarData(dados.DT_UT_DOSE),
       DT_VAC_MAE: tratarData(dados.DT_VAC_MAE),
@@ -125,8 +113,7 @@ class DadosClinicos {
         dt_vac_mae,
         m_amamenta,
         dt_doseuni,
-        dt_3_dose,
-        dt_2_dose
+        dt_1_dose
       ) VALUES (
         :ID_PACIENTE,
         :HISTO_VGM,
@@ -174,8 +161,7 @@ class DadosClinicos {
         :DT_VAC_MAE,
         :M_AMAMENTA,
         :DT_DOSEUNI,
-        :DT_3_DOSE,
-        :DT_2_DOSE
+        :DT_1_DOSE
       ) RETURNING id_dados_clinicos;
     `, dados);
 

@@ -2,7 +2,7 @@ const CsvReadableStream = require('csv-reader');
 const fs = require('fs');
 const { default: PQueue } = require('p-queue');
 
-const { paciente, hospital, notificacao, dadosClinicos, conclusao } = require('../database');
+const { paciente, hospital, notificacao, dadosClinicos, conclusao, dadosAtendimento } = require('../database');
 
 /**
  * @param {string} filePath 
@@ -24,6 +24,7 @@ module.exports = async (filePath) => {
     const idDadosClinicos = await dadosClinicos.criar(novoPaciente.id_paciente, linha);
     const novaNotificacao = await notificacao.criar(idDadosClinicos, linha);
     const novaConclusao = await conclusao.criar(idDadosClinicos, linha);
+    const novoDadosAtendimento = await dadosAtendimento.criar(idDadosClinicos, linha);
   };
 
   return new Promise(async (resolve, reject) => {
