@@ -4,7 +4,7 @@ const { DadosClinicos } = require('./dadosClinicos');
 const { DadosLaboratoriais } = require('./dadosLaboratoriais');
 const { Notificacao } = require('./notificacoes');
 const { Paciente } = require('./pacientes');
-const { Hospital } = require('./hospitais');
+const { Hospital } = require('./hospital');
 
 const knex = require('knex');
 

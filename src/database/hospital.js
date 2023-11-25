@@ -30,9 +30,9 @@ class Hospital {
 
     // Se não existe, cria um novo hospital
     const { rows } = await this.database.raw(`
-      INSERT INTO residencia (
+      INSERT INTO hospital (
         id_unidade, sg_uf, id_rg_resi, id_mn_resi,
-        cs_zona, id_pais, id_paciente
+        cs_zona, id_pais
       ) VALUES ( 
         :ID_UNIDADE, 
         :SG_UF, :ID_RG_RESI, :ID_MN_RESI,
