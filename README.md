@@ -32,14 +32,3 @@
   * III. Para enviar suas alterações para um repositório remoto, você pode usar o comando git push: `git push`
   * IV. Para puxar as alterações mais recentes de um repositório remoto para o seu repositório local, use o seguinte comando: `git pull` <br>
   * OBS: Antes de modificar qualquer coisa no código, lembre-se de executar o comando `git pull` para trazer as modificações mais recentes de outros colaboradores para o seu repositório local e garantir que você esteja trabalhando com a versão mais atualizada do código.
-
-## Instalar as dependências do projeto:
-  * pip
-    ```
-    pip install -r requirements.txt
-    ```
-
-  * pip3
-    ```
-    pip3 install -r requirements.txt
-    ```
