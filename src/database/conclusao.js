@@ -27,18 +27,17 @@ class Conclusao {
     `);
   }
 
-async criar(idCodAtendimento, dados) {
-  console.log(dados)
-  const dtEvoluca = tratarData(dados.DT_EVOLUCA);
-  const dtEncerra = tratarData(dados.DT_ENCERRA);
-  dados = {
-    ...dados,
-    DT_EVOLUCA: dtEvoluca,
-    DT_ENCERRA: dtEncerra,
-    ID_COD_ATENDIMENTO: idCodAtendimento,
-  }
+  async criar(idCodAtendimento, dados) {
+    const dtEvoluca = tratarData(dados.DT_EVOLUCA);
+    const dtEncerra = tratarData(dados.DT_ENCERRA);
+    dados = {
+      ...dados,
+      DT_EVOLUCA: dtEvoluca,
+      DT_ENCERRA: dtEncerra,
+      ID_COD_ATENDIMENTO: idCodAtendimento,
+    }
 
-  const { rows } = await this.database.raw(`
+    const { rows } = await this.database.raw(`
     INSERT INTO conclusao (
       id_cod_atendimento, classi_fin, classi_out,
       criterio, evolucao, dt_evoluca,
@@ -52,8 +51,8 @@ async criar(idCodAtendimento, dados) {
     ) RETURNING *;
   `, dados);
 
-  return rows[0];
-}
+    return rows[0];
+  }
 
 }
 

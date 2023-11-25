@@ -1,5 +1,6 @@
 const CsvReadableStream = require('csv-reader');
 const fs = require('fs');
+
 const { default: PQueue } = require('p-queue');
 
 const { paciente, hospital, notificacao, dadosClinicos, conclusao } = require('../database');
@@ -27,15 +28,27 @@ module.exports = async (filePath) => {
   };
 
   return new Promise(async (resolve, reject) => {
-    const fila = new PQueue({ concurrency: 1000, autoStart: true, interval: 0 });
+    inputStream.on('readable', async () => {
+      let naoTemMaisLinhas = false;
 
-    inputStream.on('data', async (linha) => {
-      await fila.add(async () => inserirLinha(linha));
-    })
-      .on('end', async () => {
-        fila.onEmpty().then(() => {
-          resolve();
-        });
-      });
+      while (true) {
+        const maximoConcorrencia = 1000;
+        const arrayDePromises = [];
+
+        while (arrayDePromises.length < maximoConcorrencia) {
+          const linha = inputStream.read();
+
+          if (!linha) {
+            naoTemMaisLinhas = true;
+            break;
+          }
+
+          arrayDePromises.push(inserirLinha(linha));
+        }
+
+        await Promise.all(arrayDePromises);
+        if (naoTemMaisLinhas) return resolve();
+      }
+    });
   });
 }
