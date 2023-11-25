@@ -12,6 +12,7 @@
   "dependencies": {
     "csv-reader": "^1.0.12",
     "knex": "^3.0.1",
+    "p-queue": "^6.1.0",
     "pg": "^8.11.3"
   }
 }

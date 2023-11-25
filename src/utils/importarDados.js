@@ -1,42 +1,8 @@
 const CsvReadableStream = require('csv-reader');
 const fs = require('fs');
+const { default: PQueue } = require('p-queue');
+
 const { paciente, hospital, notificacao, dadosClinicos } = require('../database');
-
-class Fila {
-  fila = [];
-  callback = null;
-  finalizar = false;
-
-  constructor(callback) {
-    this.callback = callback;
-    this.executar();
-  }
-
-  async inserir(funcao) {
-    this.fila.push(funcao);
-  }
-
-  async executar() {
-    while (!this.finalizar && this.fila.length > 0) {
-      const promisesArray = [];
-      let interador = 0;
-
-      while (interador < 1000) {
-        const funcao = this.fila.shift(1000);
-        if (!funcao) break;
-        promisesArray.push(funcao());
-      }
-
-      await Promise.all(promisesArray);
-    }
-
-    this.callback();
-  }
-
-  async finalizar() {
-    this.finalizar = true;
-  }
-}
 
 /**
  * @param {string} filePath 
@@ -60,15 +26,15 @@ module.exports = async (filePath) => {
   };
 
   return new Promise(async (resolve, reject) => {
-    const fila = new Fila(resolve);
-    fila.executar();
+    const fila = new PQueue({ concurrency: 1000, autoStart: true, interval: 0 });
 
-    // Leitura assíncrona do arquivo CSV 
-    for await (const linha of inputStream) {
-      fila.inserir(() => inserirLinha(linha));
-    }
-
-    // Finaliza a função
-    resolve();
+    inputStream.on('data', async (linha) => {
+      await fila.add(async () => inserirLinha(linha));
+    })
+      .on('end', async () => {
+        fila.onEmpty().then(() => {
+          resolve();
+        });
+      });
   });
 }
