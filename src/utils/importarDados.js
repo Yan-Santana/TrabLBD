@@ -3,10 +3,17 @@ const fs = require('fs');
 
 const { tratarLinha } = require('./tratadorDeDados');
 
-const { paciente, hospital,
-  notificacao, dadosClinicos,
-  conclusao, dadosAtendimento,
-  dadosLaboratoriais } = require('../database');
+const {
+  paciente,
+  hospital,
+  notificacao,
+  dadosClinicos,
+  conclusao,
+  dadosAtendimento,
+  dadosLaboratoriais
+} = require('../database');
+
+const { contarLinhasArquivo } = require('./csv');
 
 /**
  * @param {string} filePath 
@@ -34,9 +41,12 @@ module.exports = async (filePath) => {
   };
 
   return new Promise(async (resolve, reject) => {
+    const totalDados = await contarLinhasArquivo(filePath) - 1;
+    let dadosInseridos = 0;
+
     inputStream.on('readable', async () => {
       while (true) {
-        const maximoConcorrencia = 1000;
+        const maximoConcorrencia = 100;
         const arrayDePromises = [];
 
         while (arrayDePromises.length < maximoConcorrencia) {
@@ -46,12 +56,13 @@ module.exports = async (filePath) => {
           arrayDePromises.push(inserirLinha(linha));
         }
 
+        dadosInseridos += arrayDePromises.length;
         await Promise.all(arrayDePromises);
-        break;
+
+        if (dadosInseridos === totalDados) {
+          return resolve();
+        }
       }
-    })
-      .on('finish', () => {
-        return resolve();
-      });
+    });
   });
 }
