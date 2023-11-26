@@ -12,7 +12,7 @@ class Notificacao {
     await this.database.raw(`
       CREATE TABLE IF NOT EXISTS notificacao (
         id_notificacao SERIAL PRIMARY KEY,
-        id_dados_clinicos INTEGER,
+        id_dados_clinicos INTEGER REFERENCES dados_clinicos(id_dados_clinicos),
         dt_notific DATE,
         sg_uf_not VARCHAR(2),
         sem_not VARCHAR(64),

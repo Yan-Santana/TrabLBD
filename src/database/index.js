@@ -5,6 +5,7 @@ const { DadosLaboratoriais } = require('./dadosLaboratoriais');
 const { Notificacao } = require('./notificacoes');
 const { Paciente } = require('./pacientes');
 const { Hospital } = require('./hospital');
+const { Sintoma } = require('./sintoma')
 
 const knex = require('knex');
 
@@ -36,4 +37,5 @@ module.exports = {
   notificacao: new Notificacao(database),
   paciente: new Paciente(database),
   hospital: new Hospital(database),
+  sintoma: new Sintoma(database)
 }

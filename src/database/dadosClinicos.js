@@ -142,7 +142,7 @@ class DadosClinicos {
     `, dados);
 
     return rows[0].id_dados_clinicos;
-  }
+  } 
 }
 
 module.exports = { DadosClinicos };

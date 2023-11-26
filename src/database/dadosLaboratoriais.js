@@ -12,7 +12,7 @@ class DadosLaboratoriais {
     await this.database.raw(`
       CREATE TABLE IF NOT EXISTS dados_laboratoriais (
         requi_gal SERIAL PRIMARY KEY,
-        id_dados_clinicos INTEGER,
+        id_dados_clinicos INTEGER REFERENCES dados_clinicos(id_dados_clinicos),
         tp_tes_an INTEGER,
         dt_res_an DATE,
         res_an VARCHAR(1),

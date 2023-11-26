@@ -10,7 +10,8 @@ const {
   dadosClinicos,
   conclusao,
   dadosAtendimento,
-  dadosLaboratoriais
+  dadosLaboratoriais,
+  sintoma
 } = require('../database');
 
 const { contarLinhasArquivo } = require('./csv');
@@ -35,9 +36,10 @@ module.exports = async (filePath) => {
     const idHospital = await hospital.pegarIdOuCriar(linha);
     const idDadosClinicos = await dadosClinicos.criar(novoPaciente.id_paciente, linha);
     const novaNotificacao = await notificacao.criar(idDadosClinicos, linha);
-    const novaConclusao = await conclusao.criar(idDadosClinicos, linha);
-    const novoDadosAtendimento = await dadosAtendimento.criar(idDadosClinicos, linha);
+    const idDadosAtendimento = await dadosAtendimento.criar(idDadosClinicos, idHospital, linha);
+    const novaConclusao = await conclusao.criar(idDadosAtendimento, linha);
     const novoDadosLaboratoriais = await dadosLaboratoriais.criar(idDadosClinicos, linha);
+    await sintoma.criar(idDadosClinicos, linha);
   };
 
   return new Promise(async (resolve, reject) => {
