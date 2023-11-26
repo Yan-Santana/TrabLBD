@@ -15,7 +15,7 @@ class Hospital {
         id_mn_resi VARCHAR(64),
         sg_uf VARCHAR(2),
         cs_zona VARCHAR(1),
-        id_pais VARCHAR(20)
+        id_pais VARCHAR(64)
       )
     `);
   }
