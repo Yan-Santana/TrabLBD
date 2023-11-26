@@ -24,7 +24,7 @@ class DadosSintoma {
         }
 
         const { rows } = await this.database.raw(`
-        INSERT INTO sintoma (
+        INSERT INTO dados_sintoma (
         id_sintoma,
         id_dados_clinicos,
         ) VALUES (
