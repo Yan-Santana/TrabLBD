@@ -28,7 +28,7 @@ const main = async () => {
   await importarDados(path.resolve(__dirname, '..', 'entrada.csv'));
 
   console.log('Importação concluída com sucesso!');
-  //return process.exit(0);
+  return process.exit(0);
 }
 
 main();
