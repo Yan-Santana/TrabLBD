@@ -54,7 +54,9 @@ module.exports = async (filePath) => {
         }
 
         await Promise.all(arrayDePromises);
-        if (naoTemMaisLinhas) return resolve();
+        if (naoTemMaisLinhas) {
+          return resolve();
+        } 
       }
     });
   });
