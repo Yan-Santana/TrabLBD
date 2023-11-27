@@ -18,15 +18,9 @@ def create_connection():
             host = DB_HOST,
             port = DB_PORT
         )
+        conn.autocommit = True
+
         print("Conexão com o banco de dados realizada com sucesso!")
         return conn
     except psycopg2.Error as e:
         print(f"Erro na conexão com o banco de dados: {e}")
-
-
-def execute_query(connection, query, data = None):
-    cursor = connection.cursor()
-    resultado = cursor.execute(query, data)    
-    cursor.close()
-
-    return resultado

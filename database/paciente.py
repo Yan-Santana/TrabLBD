@@ -1,23 +1,14 @@
-from database import execute_query
+from utilitarios.tratadorDeDados import tratarData
 
-def inserir(connection, dados):
-    sql_paciente = """
-        INSERT INTO paciente (
-            cs_sexo, dt_nasc, nu_idade_n,
-            tp_idade, cs_raca, cs_gestant, cs_escol_n,
-            pac_cocbo
-        ) VALUES (
-            %(cs_sexo)s, %(dt_nasc)s, %(nu_idade_n)s,
-            %(tp_idade)s, %(cs_raca)s, %(cs_gestant)s, %(cs_escol_n)s,
-            %(pac_cocbo)s
-        );
-    """
+class Paciente:
+  def __init__(self, database):
+    self.database = database
 
-    return execute_query(connection, sql_paciente, dados)
+  def criarTabela(self):
+    cursor = self.database.cursor()
 
-def create_table(connection):
-    query = """
-        CREATE TABLE IF NOT EXISTS paciente (
+    cursor.execute('''
+      CREATE TABLE IF NOT EXISTS paciente (
         id_paciente SERIAL PRIMARY KEY,
         cs_sexo VARCHAR(1),
         dt_nasc DATE NULL,
@@ -27,7 +18,35 @@ def create_table(connection):
         cs_gestant VARCHAR(1),
         cs_escol_n VARCHAR(1),
         pac_cocbo VARCHAR(6)
-    )
-    """
+      )
+    ''')
 
-    execute_query(connection, query)
+    
+    cursor.close()
+
+  def criar(self, dados):
+    cursor = self.database.cursor()
+
+    dataNascimentoTratada = tratarData(dados['DT_NASC'])
+    dados = {
+      **dados,
+      'DT_NASC': dataNascimentoTratada,
+    }
+
+    cursor.execute('''
+      INSERT INTO paciente (
+        cs_sexo, dt_nasc, nu_idade_n,
+        tp_idade, cs_raca, cs_gestant, cs_escol_n,
+        pac_cocbo
+      ) VALUES (
+          %(CS_SEXO)s, %(DT_NASC)s, %(NU_IDADE_N)s,
+          %(TP_IDADE)s, %(CS_RACA)s, %(CS_GESTANT)s, %(CS_ESCOL_N)s,
+          %(PAC_COCBO)s
+      ) RETURNING *;
+    ''', dados)
+
+    row = cursor.fetchone()
+    
+    cursor.close()
+
+    return row
